@@ -1,4 +1,4 @@
-# 🔌 Windows TCP Socket Error Log
+# Windows TCP Socket Error Log
 
 실제 개발 및 테스트 과정에서 발견한 소켓 에러를 기록한다.
 
