@@ -49,6 +49,17 @@ OnlineStar 과제중 서버 테스트중에 발생하였다.
 6. 다음프레임 select()에서 closesocket()된 소켓에다가 시도하면서 10038 WSAENOTSOCK을 반환하였음.
 7. 클라이언트는 FIN을 받고 recv()쪽에서 0을 반환하며 "연결을 종료합니다." 출력함. (왜 FIN을 받지? 링거로 RST쏘게 했는데..)
 
+* 남겨진 파일 로그. (send()에서 RST를 받은 것을 인지하였다)
+```text
+[SocketErrorLog]20261104_190812.txt
+
+send() error. [AcceptClientInfo -> OtherClient] errorcode=10054, FILE:C:\Users\admin\source\repos\[2코스 과제] OnlineStar\Server\server.cpp, LINE:318, acceptClientAddr:127.0.0.1:50231, 
+MsgData -> type = CreateStar(1)
+MsgData -> id = 1
+MsgData -> col = 40
+MsgData -> row = 11
+```
+
 ### 결론
 
 closesocket()한 소켓에 대해 select() 수행하다가 발생하였음.
