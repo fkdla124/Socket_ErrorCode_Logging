@@ -16,6 +16,7 @@
 | 코드 | 에러 이름 | 핵심 원인 |
 |---:|---|---|
 | [10038](#-wsaenotsock-10038) | `WSAENOTSOCK` | 소켓이 아닌항목에 대해 작업 |
+| [10048](#-wsaeaddrinuse-10048) | `WSAEADDRINUSE` | 이미 사용중인 주소 |
 | [10054](#-wsaeconnreset-10054) | `WSAECONNRESET` | 기존 연결의 강제 초기화 |
 | [10055](#-wsaenobufs-10055) | `WSAENOBUFS` | 시스템 자원 고갈 |
 | [10060](#️-wsaetimedout-10060) | `WSAETIMEDOUT` | 연결 응답 시간 초과 |
@@ -69,6 +70,33 @@ closesocket()한 소켓에 대해 select() 수행하다가 발생하였음.
 - 연결 종료된 소켓에 대한 send(), select()
 - TCP FIN -> recv()에서 0 반환.
 - TCP의 연결과 L7의 소켓(세션)은 별개의 존재.
+
+---
+
+## 🔒 WSAEADDRINUSE (10048)
+↩️ **[📊 에러 코드 요약으로 돌아가기](#-에러-코드-요약)**
+
+이미 사용중인 주소입니다.
+
+### 발생 상황
+
+OnlineStar 과제 진행 중 서버를 두개 켜보았다.
+
+이후 서버의 `bind()`에서 `10048`이 반환되었다.
+
+![10048](./image/10048.png)
+
+### 원인 분석
+
+서버를 두개 키면서 이미 사용중인 IP/Port로 binding을 시도하면서 에러가 발생했다.
+
+### 결론
+
+이미 사용중인 주소로 binding하려면 소켓옵션에 SO_REUSEADDR을 사용해야 한다.
+
+### 관찰한 네트워크 이론
+
+- netstat에 살아있는 연결정보가 있다면 binding할 수 없다.
 
 ---
 
