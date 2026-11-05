@@ -15,12 +15,42 @@
 
 | 코드 | 에러 이름 | 핵심 원인 |
 |---:|---|---|
+| [10035](#%EF%B8%8F-wsaewouldblock-10035) | `WSAEWOULDBLOCK` | 리소스를 일시적으로 사용할 수 없습니다. |
 | [10038](#-wsaenotsock-10038) | `WSAENOTSOCK` | 소켓이 아닌항목에 대해 작업 |
 | [10048](#-wsaeaddrinuse-10048) | `WSAEADDRINUSE` | 이미 사용중인 주소 |
 | [10054](#-wsaeconnreset-10054) | `WSAECONNRESET` | 기존 연결의 강제 초기화 |
 | [10055](#-wsaenobufs-10055) | `WSAENOBUFS` | 시스템 자원 고갈 |
 | [10060](#️-wsaetimedout-10060) | `WSAETIMEDOUT` | 연결 응답 시간 초과 |
 | [10061](#-wsaeconnrefused-10061) | `WSAECONNREFUSED` | 연결 요청 거부 |
+
+---
+
+## ⚠️ WSAEWOULDBLOCK (10035)
+↩️ **[📊 에러 코드 요약으로 돌아가기](#-에러-코드-요약)**
+
+* 리소스를 일시적으로 사용할 수 없습니다.
+* OnlineStar 프로젝트중에 발견. -> [문제해결 기록](https://github.com/fkdla124/OnlineStar/tree/master/%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0)
+
+
+### 발생 상황
+
+OnlinStar 서버 send() 함수에서 `10035 WSAEWOULDBLOCK` 반환. 파일로 로깅하였음.
+
+```text
+[SocketErrorLog]20261105_162159.txt
+
+send() error. errorcode: 10035, FILE: C:\Users\admin\source\repos\[2코스 과제] OnlineStar\Server\server.cpp, LINE: 422, recvSessionID: 32 
+MsgType = 3
+```
+
+
+### 원인 분석
+
+상대방 수신버퍼가 꽉 찬 상태로 send()를 호출하여 발생하였음.
+
+### 결론
+
+리소스를 당장 사용할 수 없는 이유는 이거말고도 여러가지가 있을 것이다. 하지만 직접 발견한 케이스이기에 기록한다.
 
 ---
 
